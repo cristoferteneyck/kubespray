@@ -1,11 +1,11 @@
 ## Values for the external vSphere Cloud Provider
-external_vsphere_vcenter_ip: "devvcsa.epicpki.local"
+external_vsphere_vcenter_ip: "192.168.5.7"
 external_vsphere_vcenter_port: "443"
 external_vsphere_insecure: "true"
 external_vsphere_user: "administrator@vsphere.local" # Can also be set via the `VSPHERE_USER` environment variable
 external_vsphere_password: "Geotus2020!!" # Can also be set via the `VSPHERE_PASSWORD` environment variable
 external_vsphere_datacenter: "EpicPKI"
-# external_vsphere_kubernetes_cluster_id: "kubernetes-cluster-id"
+external_vsphere_kubernetes_cluster_id: "k8s.epicpki.local"
 
 ## Vsphere version where located VMs
 # external_vsphere_version: "6.7u3"
