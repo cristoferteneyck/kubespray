@@ -28,5 +28,5 @@ external_vsphere_kubernetes_cluster_id: "k8s.epicpki.local"
 # vsphere_csi_resizer_tag: "v1.3.0"
 
 ## To use vSphere CSI plugin to provision volumes set this value to true
-vsphere_csi_enabled: true
+vsphere_csi_enabled: false
 vsphere_csi_controller_replicas: 1
