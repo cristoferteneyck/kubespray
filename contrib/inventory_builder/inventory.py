@@ -37,7 +37,7 @@
 
 from collections import OrderedDict
 from ipaddress import ip_address
-from ruamel_yaml import YAML
+from ruamel.yaml import YAML
 
 import os
 import re
