@@ -28,9 +28,9 @@ nodeRegistration:
   kubeletExtraArgs:
     cloud-provider: external
 {% endif %}
-{% if kubeadm_patches is defined and kubeadm_patches.enabled %}
+{% if kubeadm_patches | length > 0 %}
 patches:
-  directory: {{ kubeadm_patches.dest_dir }}
+  directory: {{ kubeadm_patches_dir }}
 {% endif %}
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -127,7 +127,6 @@ apiServer:
     anonymous-auth: "{{ kube_api_anonymous_auth }}"
 {% endif %}
     authorization-mode: {{ authorization_modes | join(',') }}
-    advertise-address: {{ kube_apiserver_address }}
     bind-address: {{ kube_apiserver_bind_address }}
 {% if kube_apiserver_enable_admission_plugins | length > 0 %}
     enable-admission-plugins: {{ kube_apiserver_enable_admission_plugins | join(',') }}
