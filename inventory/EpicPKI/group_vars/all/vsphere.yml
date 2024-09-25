@@ -12,7 +12,7 @@ external_vsphere_datacenter: "EpicPKI-Datacenter"
 
 ## Tags for the external vSphere Cloud Provider images
 registry.k8s.io/csi-vsphere/manager
-external_vsphere_cloud_controller_image_tag: "latest"
+## external_vsphere_cloud_controller_image_tag: "latest"
 registry.k8s.io/csi-vsphere/syncer
 # vsphere_syncer_image_tag: "v2.5.1"
 registry.k8s.io/sig-storage/csi-attacher
