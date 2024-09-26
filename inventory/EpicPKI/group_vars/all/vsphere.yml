@@ -17,7 +17,7 @@ external_vsphere_kubernetes_cluster_id: "EpicPKI-Cluster"
 # vsphere_syncer_image_tag: "v2.5.1"
 ## registry.k8s.io/sig-storage/csi-attacher
 # vsphere_csi_attacher_image_tag: "v3.4.0"
-# sregistry.k8s.io/csi-vsphere/driver
+# registry.k8s.io/csi-vsphere/driver
 # vsphere_csi_controller: "v2.5.1"
 ## registry.k8s.io/sig-storage/livenessprobe
 # vsphere_csi_liveness_probe_image_tag: "v2.6.0"
@@ -28,5 +28,5 @@ external_vsphere_kubernetes_cluster_id: "EpicPKI-Cluster"
 # vsphere_csi_resizer_tag: "v1.3.0"
 
 ## To use vSphere CSI plugin to provision volumes set this value to true
-# vsphere_csi_enabled: true
+vsphere_csi_enabled: true
 # vsphere_csi_controller_replicas: 1

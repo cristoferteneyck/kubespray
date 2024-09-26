@@ -36,7 +36,7 @@ spec:
       serviceAccountName: cloud-controller-manager
       containers:
         - name: vsphere-cloud-controller-manager
-          image: registry.k8s.io/csi-vsphere/manager:{{ external_vsphere_cloud_controller_image_tag }}
+          image: {{ gcr_image_repo }}/cloud-provider-vsphere/cpi/release/manager:{{ external_vsphere_cloud_controller_image_tag }}
           args:
             - --v=2
             - --cloud-provider=vsphere
