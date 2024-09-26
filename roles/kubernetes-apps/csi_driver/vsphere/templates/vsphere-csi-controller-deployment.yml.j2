@@ -52,7 +52,7 @@ spec:
       dnsPolicy: "Default"
       containers:
         - name: csi-attacher
-          image: {{ kube_image_repo }}/sig-storage/csi-attacher:{{ vsphere_csi_attacher_image_tag }}
+          image: registry.k8s.io/sig-storage/csi-attacher:v4.5.1
           args:
             - "--v=4"
             - "--timeout=300s"
@@ -75,7 +75,7 @@ spec:
               name: socket-dir
 {% if external_vsphere_version >= "7.0" %}
         - name: csi-resizer
-          image: {{ kube_image_repo }}/sig-storage/csi-resizer:{{ vsphere_csi_resizer_tag }}
+          image: registry.k8s.io/sig-storage/csi-resizer:v1.10.1
           args:
             - "--v=4"
             - "--timeout=300s"
@@ -99,7 +99,7 @@ spec:
               name: socket-dir
 {% endif %}
         - name: vsphere-csi-controller
-          image: registry.k8s.io/csi-vsphere/syncer:{{ vsphere_syncer_image_tag }}
+          image: us-central1-docker.pkg.dev/k8s-staging-images/csi-vsphere/driver:latest
           args:
             - "--fss-name=internal-feature-states.csi.vsphere.vmware.com"
             - "--fss-namespace={{ vsphere_csi_namespace }}"
@@ -153,7 +153,7 @@ spec:
             periodSeconds: 180
             failureThreshold: 3
         - name: liveness-probe
-          image: {{ kube_image_repo }}/sig-storage/livenessprobe:{{ vsphere_csi_liveness_probe_image_tag }}
+          image: registry.k8s.io/sig-storage/livenessprobe:v2.12.0
           args:
             - "--v=4"
             - "--csi-address=$(ADDRESS)"
@@ -168,7 +168,7 @@ spec:
             - name: socket-dir
               mountPath: {{ csi_endpoint }}
         - name: vsphere-syncer
-          image: registry.k8s.io/csi-vsphere/syncer:{{ vsphere_syncer_image_tag }}
+          image: us-central1-docker.pkg.dev/k8s-staging-images/csi-vsphere/syncer:latest
           args:
             - "--leader-election"
             - "--leader-election-lease-duration=30s"
@@ -207,7 +207,7 @@ spec:
               name: vsphere-config-volume
               readOnly: true
         - name: csi-provisioner
-          image: {{ kube_image_repo }}/sig-storage/csi-provisioner:{{ vsphere_csi_provisioner_image_tag }}
+          image: registry.k8s.io/sig-storage/csi-provisioner:v4.0.1
           args:
             - "--v=4"
             - "--timeout=300s"
@@ -235,7 +235,7 @@ spec:
             {{ vsphere_csi_provisioner_resources | default({}) | to_nice_yaml | trim | indent(width=12) }}
 {% endif %}
         - name: csi-snapshotter
-          image: {{ kube_image_repo }}/sig-storage/csi-snapshotter:{{ vsphere_csi_snapshotter_image_tag }}
+          image: registry.k8s.io/sig-storage/csi-snapshotter:v7.0.2
           args:
             - "--v=4"
             - "--kube-api-qps=100"
