@@ -29,4 +29,4 @@ external_vsphere_kubernetes_cluster_id: "EpicPKI-Cluster"
 
 ## To use vSphere CSI plugin to provision volumes set this value to true
 vsphere_csi_enabled: true
-# vsphere_csi_controller_replicas: 1
+vsphere_csi_controller_replicas: 1
