@@ -33,10 +33,6 @@ kube_version_min_required: "{{ (kubelet_checksums['amd64'] | dict2items)[-1].key
 ## Kube Proxy mode One of ['ipvs', 'iptables', 'nftables']
 kube_proxy_mode: ipvs
 
-# Kubeadm config api version
-# If kube_version is v1.31 or higher, it will be v1beta4, otherwise it will be v1beta3.
-kubeadm_config_api_version: "{{ 'v1beta4' if kube_version is version('1.31.0', '>=') else 'v1beta3' }}"
-
 # Debugging option for the kubeadm config validate command
 # Set to false only for development and testing scenarios where validation is expected to fail (pre-release Kubernetes versions, etc.)
 kubeadm_config_validate_enabled: true
@@ -152,8 +148,6 @@ manual_dns_server: ""
 
 # Can be host_resolvconf, docker_dns or none
 resolvconf_mode: host_resolvconf
-# Deploy netchecker app to verify DNS resolve as an HTTP service
-deploy_netchecker: false
 # Ip address of the kubernetes DNS service (called skydns for historical reasons)
 skydns_server: "{{ kube_service_subnets.split(',') | first | ansible.utils.ipaddr('net') | ansible.utils.ipaddr(3) | ansible.utils.ipaddr('address') }}"
 skydns_server_secondary: "{{ kube_service_subnets.split(',') | first | ansible.utils.ipaddr('net') | ansible.utils.ipaddr(4) | ansible.utils.ipaddr('address') }}"
@@ -223,6 +217,21 @@ kube_network_plugin_multus: false
 # Deploy cilium even if kube_network_plugin is not cilium.
 # This enables to deploy cilium alongside another CNI to replace kube-proxy.
 cilium_deploy_additionally: false
+
+# Identity allocation mode selects how identities are shared between cilium
+# nodes by setting how they are stored. The options are "crd" or "kvstore".
+# - "crd" stores identities in kubernetes as CRDs (custom resource definition).
+#   These can be queried with:
+#     `kubectl get ciliumid`
+# - "kvstore" stores identities in an etcd kvstore.
+# - In order to support External Workloads, "crd" is required
+#   - Ref: https://docs.cilium.io/en/stable/gettingstarted/external-workloads/#setting-up-support-for-external-workloads-beta
+# - KVStore operations are only required when cilium-operator is running with any of the below options:
+#   - --synchronize-k8s-services
+#   - --synchronize-k8s-nodes
+#   - --identity-allocation-mode=kvstore
+#   - Ref: https://docs.cilium.io/en/stable/internals/cilium_operator/#kvstore-operations
+cilium_identity_allocation_mode: crd
 
 # Determines if calico_rr group exists
 peer_with_calico_rr: "{{ 'calico_rr' in groups and groups['calico_rr'] | length > 0 }}"
